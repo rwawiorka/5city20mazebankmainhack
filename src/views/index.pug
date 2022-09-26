@@ -1,0 +1,101 @@
+extends layout
+
+block layout-content
+  div.view
+    div.title
+      h1.riddle-title Rozwiąż zagadkę
+    div.riddle-container
+      form
+        table.table
+          tr.row
+            td.column.none
+            td.column.inputs
+              input(type="text" maxlength="2" name="onetwo" class="number")
+            td.column.none
+            td.column.inputs
+              input(type="text" maxlength="2" name="onefour" class="number")
+            td.column.none
+            td.column.inputs
+              input(type="text" maxlength="2" name="onesix" class="number")
+            td.column.none
+          tr.row
+            td.column.inputs
+              input(type="text" maxlength="2" name="twoone" class="number")
+            td.column.results
+              input(type="text" maxlength="1" name="twotwo" class="result" disabled)
+            td.column.signs
+              input(type="text" maxlength="1" name="twothree" class="sign")
+            td.column.results
+              input(type="text" maxlength="1" name="twofour" class="result" disabled)
+            td.column.signs
+              input(type="text" maxlength="1" name="twofive" class="sign")
+            td.column.results
+              input(type="text" maxlength="1" name="twosix" class="result" disabled)
+            td.column.inputs
+              input(type="text" maxlength="2" name="twoseven" class="number")
+          tr.row
+            td.column.none
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.none
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.none
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.none
+          tr.row
+            td.column.inputs
+              input(type="text" maxlength="2" name="fourone" class="number")
+            td.column.results
+              input(type="text" maxlength="1" name="fourtwo" class="result" disabled)
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.results
+              input(type="text" maxlength="1" name="fourfour" class="result" disabled)
+            td.column.signs
+              input(type="text" maxlength="1" name="fourfive" class="sign")
+            td.column.results
+              input(type="text" maxlength="1" name="foursix" class="result" disabled)
+            td.column.inputs
+              input(type="text" maxlength="2" name="fourseven" class="number")
+          tr.row
+            td.column.none
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.none
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.none
+            td.column.signs
+              input(type="text" maxlength="1" name="fourthree" class="sign")
+            td.column.none
+          tr.row
+            td.column.inputs
+              input(type="text" maxlength="2" name="twoone" class="number")
+            td.column.results
+              input(type="text" maxlength="1" name="twotwo" class="result" disabled)
+            td.column.signs
+              input(type="text" maxlength="1" name="twothree" class="sign")
+            td.column.results
+              input(type="text" maxlength="1" name="twofour" class="result" disabled)
+            td.column.signs
+              input(type="text" maxlength="1" name="twofive" class="sign")
+            td.column.results
+              input(type="text" maxlength="1" name="twosix" class="result" disabled)
+            td.column.inputs
+              input(type="text" maxlength="2" name="twoseven" class="number")
+          tr.row
+            td.column.none
+            td.column.inputs
+              input(type="text" maxlength="2" name="onetwo" class="number")
+            td.column.none
+            td.column.inputs
+              input(type="text" maxlength="2" name="onefour" class="number")
+            td.column.none
+            td.column.inputs
+              input(type="text" maxlength="2" name="onesix" class="number")
+            td.column.none
+        div.button-container
+          button(type="submit" class="submit") Potwierdź
+          button(type="reset" class="reset") Reset
