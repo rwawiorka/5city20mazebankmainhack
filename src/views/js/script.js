@@ -42,7 +42,10 @@ function solve(results, signs, numbers) {
     results[3].value = 0;
     results[4].value = 0;
     while (final) {
-        insertData(results);
+        insertData(results, final);
+        if (!final) {
+            return;
+        }
         if (getSign(signs[1].value) === '*') {
             results[2].value = multiplication(results[0].value, results[1].value, getSign(signs[0].value), numbers[4].value);
 
@@ -93,7 +96,7 @@ function solve(results, signs, numbers) {
     }
 }
 
-function insertData(results) {
+function insertData(results, final) {
     if (parseInt(results[0].value) === parseInt(9)) {
         results[0].value = parseInt(0);
         results[1].value = parseInt(results[1].value) + 1;
@@ -113,6 +116,7 @@ function insertData(results) {
         if (parseInt(results[3].value) === parseInt(9)) {
             if (parseInt(results[1].value) === parseInt(9)) {
                 if (parseInt(results[0].value) === parseInt(9)) {
+                    final = false;
                     return;
                 }
             }
