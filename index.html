@@ -94,7 +94,8 @@
         const IncompleteFieldsException = { message: 'Wprowadź wszystkie działania' };
         const IncorrectOperationSignException = { message: 'Wprowadź poprawne wartości działań' };
         const IncompleteNumbersException = { message: 'Wprowadź wszystkie liczby' };
-        const TooLowNumberException = { message: 'Wprowadź dodatnie cyfry' };
+        const TooLowNumberException = { message: 'Wprowadź dodatnie liczby' };
+        const IncorrectNumberException = { message: 'Wprowadź tylko liczby w zielone pola' };
 
         document.addEventListener('DOMContentLoaded', () => {
             const results = document.querySelectorAll('input.result');
@@ -118,6 +119,8 @@
                             throw IncompleteNumbersException;
                         } else if (parseInt(number.value) < 0) {
                             throw TooLowNumberException;
+                        } else if (!Number.isInteger(parseInt(number.value))) {
+                            throw IncorrectNumberException;
                         }
                     });
                 } catch (e) {
@@ -135,11 +138,11 @@
             results[3].value = 0;
             results[4].value = 0;
             while (final) {
-                insertData(results, final);
-                if (!final) {
-                    return;
+                final = insertData(results);
+                if (final == false) {
+                    break;
                 }
-                if (getSign(signs[1].value) === '*') {
+                if (getSign(signs[1].value) === '*' && getSign(signs[0].value) !== '*') {
                     results[2].value = multiplication(results[0].value, results[1].value, getSign(signs[0].value), numbers[4].value);
 
                 } else {
@@ -149,7 +152,7 @@
                 if (parseInt(results[2].value) === -1 || parseInt(results[2].value) > 9) {
                     continue;
                 }
-                if (getSign(signs[6].value === '*')) {
+                if (getSign(signs[6].value) === '*' && getSign(signs[5].value) !== '*') {
                     results[5].value = multiplication(results[3].value, results[4].value, getSign(signs[5].value), numbers[6].value);
                 } else {
                     secondRow = math.evaluate(results[3].value + getSign(signs[5].value) + results[4].value);
@@ -158,7 +161,7 @@
                 if (parseInt(results[5].value) === -1 || parseInt(results[5].value) > 9) {
                     continue;
                 }
-                if (getSign(signs[7].value) === '*') {
+                if (getSign(signs[7].value) === '*'  && getSign(signs[2].value) !== '*') {
                     results[6].value = multiplication(results[0].value, results[3].value, getSign(signs[2].value), numbers[0].value);
                 } else {
                     firstColumn = math.evaluate(results[0].value + getSign(signs[2].value) + results[3].value);
@@ -167,7 +170,7 @@
                 if (parseInt(results[6].value) === -1 || parseInt(results[6].value) > 9) {
                     continue;
                 }
-                if (getSign(signs[8].value) === '*') {
+                if (getSign(signs[8].value) === '*' && getSign(signs[3].value) !== '*') {
                     results[7].value = multiplication(results[1].value, results[4].value, getSign(signs[3].value), numbers[1].value);
                 } else {
                     secondColumn = math.evaluate(results[1].value + getSign(signs[3].value) + results[4].value);
@@ -176,7 +179,7 @@
                 if (parseInt(results[7].value) === -1 || parseInt(results[7].value) > 9) {
                     continue;
                 }
-                if (getSign(signs[9].value) === '*') {
+                if (getSign(signs[9].value) === '*'  && getSign(signs[4].value) !== '*') {
                     results[8].value = multiplication(results[2].value, results[5].value, getSign(signs[4].value), numbers[2].value);
                 } else {
                     thirdColumn = math.evaluate(results[2].value + getSign(signs[4].value) + results[5].value);
@@ -187,36 +190,44 @@
                 }
                 final = checkBoard(results, numbers, signs);
             }
-        }
-
-        function insertData(results, final) {
-            if (parseInt(results[0].value) === parseInt(9)) {
-                results[0].value = parseInt(0);
-                results[1].value = parseInt(results[1].value) + 1;
-                return;
-            }
-            if (parseInt(results[1].value) === parseInt(9)) {
-                results[1].value = parseInt(0);
-                results[3].value = parseInt(results[3].value) + 1;
-                return;
-            }
-            if (parseInt(results[3].value) === parseInt(9)) {
-                results[3].value = parseInt(0);
-                results[4].value = parseInt(results[4].value) + 1;
-                return;
-            }
             if (parseInt(results[4].value) === parseInt(9)) {
                 if (parseInt(results[3].value) === parseInt(9)) {
                     if (parseInt(results[1].value) === parseInt(9)) {
                         if (parseInt(results[0].value) === parseInt(9)) {
-                            final = false;
-                            return;
+                            alert('Nie znaleziono rozwiązań dla podanego zbioru');
                         }
                     }
                 }
             }
+        }
 
+        function insertData(results) {
+            if (parseInt(results[4].value) === parseInt(9)) {
+                if (parseInt(results[3].value) === parseInt(9)) {
+                    if (parseInt(results[1].value) === parseInt(9)) {
+                        if (parseInt(results[0].value) === parseInt(9)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+            if (parseInt(results[0].value) === parseInt(9)) {
+                results[0].value = parseInt(0);
+                results[1].value = parseInt(results[1].value) + 1;
+                return true;
+            }
+            if (parseInt(results[1].value) === parseInt(9)) {
+                results[1].value = parseInt(0);
+                results[3].value = parseInt(results[3].value) + 1;
+                return true;
+            }
+            if (parseInt(results[3].value) === parseInt(9)) {
+                results[3].value = parseInt(0);
+                results[4].value = parseInt(results[4].value) + 1;
+                return true;
+            }
             results[0].value = parseInt(results[0].value) + 1;
+            return true;
         }
 
         function getSign(sign) {
@@ -283,7 +294,7 @@
             if (sign1 === '-') {
                 number2 = number2 * (-1);
             }
-            return part1 / number2 > 0 ? part1 / number2 : -1;
+            return ((Number.isInteger(part1 / number2)) && (part1 / number2 > 0)) ? part1 / number2 : -1;
         }
     </script>
 
