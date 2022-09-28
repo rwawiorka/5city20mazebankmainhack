@@ -96,6 +96,7 @@
         const IncompleteNumbersException = { message: 'Wprowadź wszystkie liczby' };
         const TooLowNumberException = { message: 'Wprowadź dodatnie liczby' };
         const IncorrectNumberException = { message: 'Wprowadź tylko liczby w zielone pola' };
+        const NumbersDoesntEqualException = { message: 'Numery muszą pasować do siebie w pionie i poziomie' };
 
         document.addEventListener('DOMContentLoaded', () => {
             const results = document.querySelectorAll('input.result');
@@ -123,6 +124,15 @@
                             throw IncorrectNumberException;
                         }
                     });
+                    if((numbers[0].value != numbers[9].value)
+                        || (numbers[1].value != numbers[10].value)
+                        || (numbers[2].value != numbers[11].value)
+                        || (numbers[3].value != numbers[4].value)
+                        || (numbers[5].value != numbers[6].value)
+                        || (numbers[7].value != numbers[8].value))
+                        {
+                            throw NumbersDoesntEqualException;
+                        }
                 } catch (e) {
                     alert(e.message);
                     return;
